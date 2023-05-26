@@ -1,8 +1,12 @@
 {
-    "extends": [
-        "@rocketseat/eslint-config/react"
-    ],
-    "rules": {
-        "camelcase": "off"
-    }
+  "extends": ["@rocketseat/eslint-config/react"],
+  "rules": {
+    "camelcase": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  }
 }

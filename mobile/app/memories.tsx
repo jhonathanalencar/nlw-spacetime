@@ -1,50 +1,50 @@
-import { useEffect, useState } from 'react'
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Link, useRouter } from 'expo-router'
-import Icon from '@expo/vector-icons/Feather'
-import * as SecureStore from 'expo-secure-store'
-import dayjs from 'dayjs'
-import ptBr from 'dayjs/locale/pt-br'
+import { useEffect, useState } from "react";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Link, useRouter } from "expo-router";
+import Icon from "@expo/vector-icons/Feather";
+import * as SecureStore from "expo-secure-store";
+import dayjs from "dayjs";
+import ptBr from "dayjs/locale/pt-br";
 
-import NLWLogo from '../src/assets/nlw-spacetime-logo.svg'
-import { api } from '../src/lib/api'
+import NLWLogo from "../src/assets/nlw-spacetime-logo.svg";
+import { api } from "../src/lib/api";
 
-dayjs.locale(ptBr)
+dayjs.locale(ptBr);
 
 interface Memory {
-  coverUrl: string
-  excerpt: string
-  createdAt: string
-  id: string
+  coverUrl: string;
+  excerpt: string;
+  createdAt: string;
+  id: string;
 }
 
 export default function Memories() {
-  const { bottom, top } = useSafeAreaInsets()
-  const router = useRouter()
-  const [memories, setMemories] = useState<Memory[]>([])
+  const { bottom, top } = useSafeAreaInsets();
+  const router = useRouter();
+  const [memories, setMemories] = useState<Memory[]>([]);
 
   async function signOut() {
-    await SecureStore.deleteItemAsync('token')
+    await SecureStore.deleteItemAsync("token");
 
-    router.push('/')
+    router.push("/");
   }
 
   async function loadMemories() {
-    const token = await SecureStore.getItemAsync('token')
+    const token = await SecureStore.getItemAsync("token");
 
-    const response = await api.get('/memories', {
+    const response = await api.get("/memories", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
+    });
 
-    setMemories(response.data)
+    setMemories(response.data);
   }
 
   useEffect(() => {
-    loadMemories()
-  }, [])
+    loadMemories();
+  }, []);
 
   return (
     <ScrollView
@@ -77,7 +77,7 @@ export default function Memories() {
               <View className="flex-row items-center gap-2">
                 <View className="h-px w-5 bg-gray-50" />
                 <Text className="font-body text-xs text-gray-100">
-                  {dayjs(memory.createdAt).format('DD[ de ]MMMM[, ]YYYY')}
+                  {dayjs(memory.createdAt).format("DD[ de ]MMMM[, ]YYYY")}
                 </Text>
               </View>
 
@@ -105,9 +105,9 @@ export default function Memories() {
                 </Link>
               </View>
             </View>
-          )
+          );
         })}
       </View>
     </ScrollView>
-  )
+  );
 }
