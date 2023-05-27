@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Spactime" src=".github/logo.svg" />
+  <img alt="Spactime" src=".github/logo.png" />
 </p>
 
 <p align="center">
